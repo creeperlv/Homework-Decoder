@@ -74,19 +74,6 @@ public class ComProgram extends JFrame {
 		chckbxET.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		chckbxET.setOpaque(false);
 		panel_Menu.add(chckbxET);
-//		
-//		JButton btnBugReport = new JButton("Bug report");
-//		btnBugReport.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				try {
-//					Runtime.getRuntime().exec("explorer.exe \"https://www.github.com/creeperlv/Homework-Decoder\"");
-//				} catch (IOException e1) {
-//					e1.printStackTrace();
-//				}
-//			}
-//		});
-//		btnBugReport.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 16));
-//		panel_Menu.add(btnBugReport);
 		
 		final JLabel lblBugReport = new JLabel("Bug Report");
 		lblBugReport.setVerticalTextPosition(SwingConstants.CENTER);
