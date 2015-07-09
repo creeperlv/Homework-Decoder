@@ -7,6 +7,13 @@ import java.awt.event.KeyEvent;
 import com.Studio2048.HomeworkDecoder.English.ComProgram;
 
 public class Decoder {
+	/**
+	 * 
+	 * @author Creeper Lv
+	 * @param c
+	 * @return
+	 * @throws Exception
+	 */
 	public static int ActionKey(char c) throws Exception {
 		// Robot a =new Robot();
 		switch (c) {
@@ -109,7 +116,12 @@ public class Decoder {
 		}
 		throw new Exception("No Character Equls " + c + "!");
 	}
-
+	
+	/**
+	 * @author Creeper Lv
+	 * @param KeyCode
+	 * @param r
+	 */
 	public static void KeyPress(final int KeyCode, final Robot r) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -119,6 +131,11 @@ public class Decoder {
 		});
 	}
 
+	/**
+	 * @author Creeper Lv
+	 * @param KeyCode
+	 * @param r
+	 */
 	public static void KeyDown(final int KeyCode, final Robot r) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -127,6 +144,11 @@ public class Decoder {
 		});
 	}
 
+	/**
+	 * @author Creeper Lv
+	 * @param KeyCode
+	 * @param r
+	 */
 	public static void KeyUp(final int KeyCode, final Robot r) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -135,6 +157,11 @@ public class Decoder {
 		});
 	}
 
+	/**
+	 * @author Creeper Lv
+	 * @param KeyCode
+	 * @param r
+	 */
 	public static String Decode(String content, boolean isThread) {
 		String S = "";
 		for (int i = 0; i < content.length(); i++) {
