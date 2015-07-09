@@ -20,6 +20,7 @@ public class ComProgramPro extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Objects.isUsingPro=true;
 					frame = new ComProgramPro();
 					frame.setVisible(true);
 				} catch (Exception e) {
