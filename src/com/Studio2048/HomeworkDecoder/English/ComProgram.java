@@ -26,6 +26,7 @@ public class ComProgram extends JFrame {
 					frame = new ComProgram();
 					frame.setVisible(true);
 				} catch (Exception e) {
+					Objects.isException=true;
 					e.printStackTrace();
 				}
 			}
@@ -46,6 +47,7 @@ public class ComProgram extends JFrame {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
+			Objects.isException=true;
 		}
 		chckbxET = new JCheckBox("Enable Thread");
 		chckbxET.setToolTipText("<html>\r\n<body>\r\n<p style = \" color:red \">\r\nIt may cause a low speed.");
@@ -74,6 +76,19 @@ public class ComProgram extends JFrame {
 		chckbxET.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		chckbxET.setOpaque(false);
 		panel_Menu.add(chckbxET);
+//		
+//		JButton btnBugReport = new JButton("Bug report");
+//		btnBugReport.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				try {
+//					Runtime.getRuntime().exec("explorer.exe \"https://www.github.com/creeperlv/Homework-Decoder\"");
+//				} catch (IOException e1) {
+//					e1.printStackTrace();
+//				}
+//			}
+//		});
+//		btnBugReport.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 16));
+//		panel_Menu.add(btnBugReport);
 		
 		final JLabel lblBugReport = new JLabel("Bug Report");
 		lblBugReport.setVerticalTextPosition(SwingConstants.CENTER);
@@ -92,8 +107,93 @@ public class ComProgram extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				try {
-					Runtime.getRuntime().exec("explorer.exe \"https://www.github.com/creeperlv/Homework-Decoder\"");
+					SimpleDateFormat df = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+					Robot Bug = new Robot();
+					BufferedImage screen = Bug.createScreenCapture(frame
+							.getBounds());
+					Graphics g = screen.getGraphics();
+					g.setColor(Color.GRAY);
+					for(int i = 1;i<90;i=i+2)
+					g.drawLine(1, i, 400, i);
+					Properties props = System.getProperties();
+					g.setFont(new Font("System", Font.PLAIN, 13));
+					g.setColor(Color.ORANGE);
+					g.drawString("Com Dec " + Objects.builds[0] + " "
+							+ Objects.status[0] + " Part:" + Objects.Part[0]+" Key:Null", 12, 12);
+					g.setColor(Color.red);
+					g.drawString("Com Dec " + Objects.builds[0] + " "
+							+ Objects.status[0] + " Part:" + Objects.Part[0]+" Key:Null", 13, 13);
+					g.setColor(Color.ORANGE);
+					g.drawString("System:" + props.getProperty("os.name") + " "
+							+ props.getProperty("os.arch"), 12, 24);
+					g.setColor(Color.red);
+					g.drawString("System:" + props.getProperty("os.name") + " "
+							+ props.getProperty("os.arch"), 13, 25);
+					g.setColor(Color.ORANGE);
+					g.drawString("Java(" + props.getProperty("java.vendor")
+							+ "):" + props.getProperty("java.version")
+							+ " JVM:" + props.getProperty("java.vm.version"),
+							12, 36);
+					g.setColor(Color.red);
+					g.drawString("Java(" + props.getProperty("java.vendor")
+							+ "):" + props.getProperty("java.version")
+							+ " JVM:" + props.getProperty("java.vm.version"),
+							13, 37);
+					g.setColor(Color.ORANGE);
+					g.drawString("User:" + props.getProperty("user.name"), 12,
+							48);
+					g.setColor(Color.red);
+					g.drawString("User:" + props.getProperty("user.name"), 13,
+							49);
+					g.setColor(Color.ORANGE);
+					g.drawString("Free Memory:"
+							+ Runtime.getRuntime().freeMemory()
+							+ "B TotalMemory:"
+							+ Runtime.getRuntime().totalMemory() + "B", 12, 60);
+					g.setColor(Color.red);
+					g.drawString("Free Memory:"
+							+ Runtime.getRuntime().freeMemory()
+							+ "B TotalMemory:"
+							+ Runtime.getRuntime().totalMemory() + "B", 13, 61);
+					g.setColor(Color.ORANGE);
+					g.drawString("ProEdition:" + Objects.isUsingPro, 12,
+							72);
+					g.setColor(Color.red);
+					g.drawString("ProEdition:" + Objects.isUsingPro, 13,
+							73);
+					g.setColor(Color.ORANGE);
+					g.drawString("Exception:" + Objects.isException+" Detail:"+Objects.e.getMessage(), 12,
+							84);
+					g.setColor(Color.red);
+					g.drawString("Exception:" + Objects.isException+" Detail:"+Objects.e.getMessage(), 13,
+							85);
+					g.setColor(Color.GRAY);
+					for(int i = 1;i<16;i=i+2)
+						g.drawLine((frame.getWidth()) - 155, (frame.getHeight()) - 37+i,(frame.getWidth()) - 155+ 125, (frame.getHeight()) - 37+i);
+					g.setColor(Color.ORANGE);
+					g.drawString("Vendor:2048 Studio",
+							(int) (frame.getWidth()) - 150,
+							(int) (frame.getHeight()) - 25);
+					g.setColor(Color.red);
+					g.drawString("Vendor:2048 Studio",
+							(int) (frame.getWidth()) - 149,
+							(int) (frame.getHeight()) - 24);
+					ImageIO.write(screen, "png", new File("./Screenshot_"+df.format(new Date())+".png"));
+					JOptionPane
+							.showMessageDialog(
+									null,
+									"The Screenshot has been created at ./Screenshot_"+df.format(new Date())+".png",
+									"Bug Report Image Creater",
+									JOptionPane.WARNING_MESSAGE);
+				} catch (Exception e1) {
+					Objects.e=e1;
+					Objects.isException=true;
+					e1.printStackTrace();
+				}
+				try {
+					Runtime.getRuntime().exec("explorer.exe \"https://www.github.com/creeperlv/Homework-Decoder/issues\"");
 				} catch (IOException e1) {
+					Objects.isException=true;
 					e1.printStackTrace();
 				}
 			}
@@ -498,7 +598,7 @@ public class ComProgram extends JFrame {
 			robot.mouseRelease(InputEvent.BUTTON1_MASK);
 			System.gc();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
+			Objects.isException=true;
 			e1.printStackTrace();
 		}
 		}else{
@@ -520,7 +620,7 @@ class DECODING extends Thread{
 			robot.mouseRelease(InputEvent.BUTTON1_MASK);
 			System.gc();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
+			Objects.isException=true;
 			e1.printStackTrace();
 		}
 	}
