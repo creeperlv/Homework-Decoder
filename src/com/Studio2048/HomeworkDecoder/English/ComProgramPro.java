@@ -1,6 +1,45 @@
 package com.Studio2048.HomeworkDecoder.English;
 
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Robot;
+import java.awt.Toolkit;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+
+import com.Studio2048.HomeworkDecoder.Objects;
+import com.Studio2048.HomeworkDecoder.English.Composition.Decoder;
+import java.awt.Color;
+import javax.swing.border.MatteBorder;
+import java.awt.FlowLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
+import java.awt.GridLayout;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Properties;
 
 @SuppressWarnings("serial")
 public class ComProgramPro extends JFrame {
@@ -9,6 +48,7 @@ public class ComProgramPro extends JFrame {
 	public static JPanel panel_2;
 	public static JPanel panel_3;
 	public static JPanel panel;
+	public static JPanel panel_1;
 
 	public static ComProgramPro frame;
 
@@ -18,11 +58,18 @@ public class ComProgramPro extends JFrame {
 
 	public static JLabel lblMessageBox = new JLabel("");
 	public static JLabel lblDecode = new JLabel("Start");
+	public static JLabel lblBugreport;
+	public static JLabel lblAbout;
+	public static JLabel lblExit;
 
 	public static boolean StopClicked = false;
 	public static boolean isRunning = false;
 
 	public static JScrollPane scrollPane;
+
+	final static int SMALL_ICON_WIDTH = 16;
+	final static int SMALL_ICON_HEIGHT = 16;
+	final static int SMALL_ICON_RENDER_WIDTH = 10;
 
 	/**
 	 * Launch the application.
@@ -61,24 +108,37 @@ public class ComProgramPro extends JFrame {
 				lblMessageBox.setBounds(32, frame.getHeight() - 55,
 						frame.getWidth() - 75, 18);
 				panel_2.setBounds(frame.getWidth() - 290,
-						frame.getHeight() - 160, 245, 83);
+						frame.getHeight() - 160, 250, 115);
 				panel_3.setBounds(32, frame.getHeight() - 160, 200, 31);
 				contentPane.updateUI();
 			}
 		});
 
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager
+					.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		} catch (Exception e) {
 			Objects.e = e;
 			Objects.isException = true;
 		}
-
-		setIconImage(Toolkit
+		ArrayList<Image> list = new ArrayList<Image>();
+		list.add(Toolkit
 				.getDefaultToolkit()
 				.getImage(
 						ComProgram.class
 								.getResource("/com/Studio2048/HomeworkDecoder/Res/IconECD.png")));
+		list.add(Toolkit
+				.getDefaultToolkit()
+				.getImage(
+						ComProgram.class
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/IconECD_16.png")));
+
+		setIconImages(list);
+		// setIconImage(Toolkit
+		// .getDefaultToolkit()
+		// .getImage(
+		// ComProgram.class
+		// .getResource("/com/Studio2048/HomeworkDecoder/Res/IconECD.png")));
 		setTitle("Composition Decoder Pro " + Objects.Versions[1] + " "
 				+ Objects.status[1] + " Build:" + Objects.builds[1]
 				+ " Author: 2048 Studio");
@@ -97,7 +157,7 @@ public class ComProgramPro extends JFrame {
 
 		JLabel lblEnglishCompositionDecoder = new JLabel(
 				"English Composition Decoder Pro");
-		lblEnglishCompositionDecoder.setForeground(Color.BLACK);
+		lblEnglishCompositionDecoder.setForeground(Color.GRAY);
 		lblEnglishCompositionDecoder.setFont(new Font("Microsoft YaHei UI",
 				Font.PLAIN, 28));
 		lblEnglishCompositionDecoder.setBounds(9, 12, 453, 37);
@@ -107,7 +167,7 @@ public class ComProgramPro extends JFrame {
 		scrollPane.setBounds(32, 61, 555, 321);
 		panel.add(scrollPane);
 
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		flowLayout.setVgap(0);
@@ -118,6 +178,7 @@ public class ComProgramPro extends JFrame {
 		scrollPane.setColumnHeaderView(panel_1);
 
 		JLabel lblInputContent = new JLabel("Input Content:");
+		lblInputContent.setForeground(Color.GRAY);
 		lblInputContent.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 12));
 		panel_1.add(lblInputContent);
 
@@ -125,16 +186,16 @@ public class ComProgramPro extends JFrame {
 		label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				label.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/SelAllL.png")));
+				label.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/SelAllL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				label.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/SelAll.png")));
+				label.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/SelAll.png")));
 			}
 
 			@Override
@@ -143,23 +204,24 @@ public class ComProgramPro extends JFrame {
 			}
 		});
 		label.setIcon(new ImageIcon(ComProgramPro.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/SelAll.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+						+ Objects.Theme + "/SelAll.png")));
 		panel_1.add(label);
 
 		final JLabel label_1 = new JLabel("");
 		label_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				label_1.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/PasteL.png")));
+				label_1.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/PasteL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				label_1.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Paste.png")));
+				label_1.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Paste.png")));
 			}
 
 			@Override
@@ -168,23 +230,24 @@ public class ComProgramPro extends JFrame {
 			}
 		});
 		label_1.setIcon(new ImageIcon(ComProgramPro.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/Paste.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+						+ Objects.Theme + "/Paste.png")));
 		panel_1.add(label_1);
 
 		final JLabel label_2 = new JLabel("");
 		label_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				label_2.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/DelL.png")));
+				label_2.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/DelL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				label_2.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Del.png")));
+				label_2.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Del.png")));
 			}
 
 			@Override
@@ -193,42 +256,47 @@ public class ComProgramPro extends JFrame {
 			}
 		});
 		label_2.setIcon(new ImageIcon(ComProgramPro.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/Del.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+						+ Objects.Theme + "/Del.png")));
 		panel_1.add(label_2);
+		textArea.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 13));
+		textArea.setForeground(Color.GRAY);
 
 		textArea.setLineWrap(true);
 		scrollPane.setViewportView(textArea);
 
-		lblMessageBox.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		lblMessageBox.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 12));
 		lblMessageBox.setBounds(32, 493, 555, 18);
 		panel.add(lblMessageBox);
 
 		panel_2 = new JPanel();
+		panel_2.setOpaque(false);
 		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(342, 392, 245, 83);
+		panel_2.setBounds(342, 392, 245, 115);
 		panel.add(panel_2);
 		panel_2.setLayout(new GridLayout(0, 2, 0, 0));
+		lblDecode.setForeground(Color.BLACK);
 		panel_2.add(lblDecode);
 
 		lblDecode.setVerticalTextPosition(SwingConstants.CENTER);
 		lblDecode.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblDecode.setIconTextGap(-30);
-		lblDecode.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		lblDecode.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		lblDecode.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				if (isRunning == false)
-					lblDecode.setIcon(new ImageIcon(
-							ComProgramPro.class
-									.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonDB.png")));
+					lblDecode.setIcon(new ImageIcon(ComProgramPro.class
+							.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+									+ Objects.Theme + "/ButtonDB.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				if (isRunning == false)
-					lblDecode.setIcon(new ImageIcon(
-							ComProgramPro.class
-									.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+					lblDecode.setIcon(new ImageIcon(ComProgramPro.class
+							.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+									+ Objects.Theme + "/Button.png")));
 			}
 
 			@Override
@@ -239,26 +307,26 @@ public class ComProgramPro extends JFrame {
 				}
 			}
 		});
-		lblDecode
-				.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+		lblDecode.setIcon(new ImageIcon(ComProgramPro.class
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+						+ Objects.Theme + "/Button.png")));
 
 		final JLabel lblStop = new JLabel("Stop");
+		lblStop.setForeground(Color.BLACK);
 		panel_2.add(lblStop);
 		lblStop.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblStop.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonL.png")));
+				lblStop.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/ButtonL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblStop.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+				lblStop.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
 			}
 
 			@Override
@@ -267,27 +335,29 @@ public class ComProgramPro extends JFrame {
 			}
 		});
 		lblStop.setIcon(new ImageIcon(ComProgramPro.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+						+ Objects.Theme + "/Button.png")));
 		lblStop.setVerticalTextPosition(SwingConstants.CENTER);
 		lblStop.setIconTextGap(-30);
 		lblStop.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblStop.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		lblStop.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 
 		final JLabel lblDecoder = new JLabel("Decoder");
+		lblDecoder.setForeground(Color.BLACK);
 		panel_2.add(lblDecoder);
 		lblDecoder.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblDecoder.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonL.png")));
+				lblDecoder.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/ButtonL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblDecoder.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+				lblDecoder.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
 			}
 
 			@Override
@@ -296,34 +366,135 @@ public class ComProgramPro extends JFrame {
 				ComProgram.frame.setVisible(true);
 			}
 		});
-		lblDecoder
-				.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+		lblDecoder.setIcon(new ImageIcon(ComProgramPro.class
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+						+ Objects.Theme + "/Button.png")));
 		lblDecoder.setVerticalTextPosition(SwingConstants.CENTER);
 		lblDecoder.setIconTextGap(-30);
 		lblDecoder.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblDecoder.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		lblDecoder.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 
-		final JLabel lblBugreport = new JLabel("Bug Report");
-		panel_2.add(lblBugreport);
-		lblBugreport.addMouseListener(new MouseAdapter() {
+		final JLabel lblAeroLight = new JLabel("Aero Light");
+		lblAeroLight.setForeground(Color.BLACK);
+		lblAeroLight.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblBugreport.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonL.png")));
+				lblAeroLight.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/ButtonL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblBugreport.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+				lblAeroLight.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (Objects.Theme.equals("AeroGlass")) {
+					lblAeroLight.setText("Dark");
+					Objects.Theme = "Dark";
+					contentPane.updateUI();
+					panel.setBackground(Color.BLACK);
+					textArea.setBackground(Color.BLACK);
+					panel_1.setBackground(Color.BLACK);
+					lblAbout.setForeground(Color.GRAY);
+					lblExit.setForeground(Color.GRAY);
+					lblDecode.setForeground(Color.GRAY);
+					lblStop.setForeground(Color.GRAY);
+					lblAeroLight.setForeground(Color.GRAY);
+					lblDecoder.setForeground(Color.GRAY);
+					lblBugreport.setForeground(Color.GRAY);
+				} else if (Objects.Theme.equals("Dark")) {
+					lblAeroLight.setText("Aero Light");
+					Objects.Theme = "AeroLight";
+					contentPane.updateUI();
+					lblAbout.setForeground(Color.BLACK);
+					lblExit.setForeground(Color.BLACK);
+					lblDecode.setForeground(Color.BLACK);
+					lblStop.setForeground(Color.BLACK);
+					lblAeroLight.setForeground(Color.BLACK);
+					lblDecoder.setForeground(Color.BLACK);
+					lblBugreport.setForeground(Color.BLACK);
+					panel.setBackground(Color.WHITE);
+					panel_1.setBackground(Color.WHITE);
+					textArea.setBackground(Color.WHITE);
+				} else if (Objects.Theme.equals("AeroLight")) {
+					lblAeroLight.setText("Aero Glass");
+					Objects.Theme = "AeroGlass";
+					contentPane.updateUI();
+					panel.setBackground(Color.WHITE);
+					panel_1.setBackground(Color.WHITE);
+					textArea.setBackground(Color.WHITE);
+				}
+				// TODO
+				label_2.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Del.png")));
+				label_1.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Paste.png")));
+				label.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/SelAll.png")));
+				lblAbout.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
+				lblExit.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
+				lblDecode.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
+				lblStop.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
+				lblAeroLight.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/ButtonL.png")));
+				lblDecoder.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
+				lblBugreport.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
+			}
+		});
+		lblAeroLight.setIcon(new ImageIcon(ComProgramPro.class
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+						+ Objects.Theme + "/Button.png")));
+		lblAeroLight.setVerticalTextPosition(SwingConstants.CENTER);
+		lblAeroLight.setIconTextGap(-30);
+		lblAeroLight.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblAeroLight.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
+		panel_2.add(lblAeroLight);
+
+		lblBugreport = new JLabel("Bug Report");
+		lblBugreport.setForeground(Color.BLACK);
+		panel_2.add(lblBugreport);
+		lblBugreport.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblBugreport.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/ButtonL.png")));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblBugreport.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				lblBugreport.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
+				contentPane.updateUI();
 				try {
 					Thread t = new Flashing();
 					t.start();
@@ -334,7 +505,7 @@ public class ComProgramPro extends JFrame {
 							.getBounds());
 					Graphics g = screen.getGraphics();
 					g.setColor(Color.GRAY);
-					for (int i = 1; i < 90; i = i + 2)
+					for (int i = 1; i < 100; i = i + 2)
 						g.drawLine(1, i, 400, i);
 					Properties props = System.getProperties();
 					g.setFont(new Font("System", Font.PLAIN, 13));
@@ -388,18 +559,23 @@ public class ComProgramPro extends JFrame {
 					g.setColor(Color.red);
 					g.drawString("Exception:" + Objects.isException
 							+ " Detail:" + Objects.e.getMessage(), 13, 85);
+					g.setColor(Color.ORANGE);
+					g.drawString("Theme:" + Objects.Theme, 12, 96);
+					g.setColor(Color.red);
+					g.drawString("Theme:" + Objects.Theme, 13, 97);
 					g.setColor(Color.GRAY);
+					System.setProperty("Vendor", "2048 Studio");
 					for (int i = 1; i < 16; i = i + 2)
 						g.drawLine((frame.getWidth()) - 155,
 								(frame.getHeight()) - 37 + i,
 								(frame.getWidth()) - 155 + 125,
 								(frame.getHeight()) - 37 + i);
 					g.setColor(Color.ORANGE);
-					g.drawString("Vendor:2048 Studio",
+					g.drawString("Vendor:" + props.getProperty("Vendor"),
 							(int) (frame.getWidth()) - 150,
 							(int) (frame.getHeight()) - 25);
 					g.setColor(Color.red);
-					g.drawString("Vendor:2048 Studio",
+					g.drawString("Vendor:" + props.getProperty("Vendor"),
 							(int) (frame.getWidth()) - 149,
 							(int) (frame.getHeight()) - 24);
 					ImageIO.write(screen, "png", new File("./Pro_Screenshot_"
@@ -412,7 +588,6 @@ public class ComProgramPro extends JFrame {
 				} catch (Exception e) {
 					Objects.e = e;
 					Objects.isException = true;
-					Objects.e = e;
 					e.printStackTrace();
 				}
 				try {
@@ -425,30 +600,30 @@ public class ComProgramPro extends JFrame {
 				}
 			}
 		});
-		lblBugreport
-				.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+		lblBugreport.setIcon(new ImageIcon(ComProgramPro.class
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+						+ Objects.Theme + "/Button.png")));
 		lblBugreport.setVerticalTextPosition(SwingConstants.CENTER);
 		lblBugreport.setIconTextGap(-30);
 		lblBugreport.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblBugreport.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		lblBugreport.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 
-		final JLabel lblAbout = new JLabel("About");
+		lblAbout = new JLabel("About");
+		lblAbout.setForeground(Color.BLACK);
 		panel_2.add(lblAbout);
 		lblAbout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblAbout.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonL.png")));
+				lblAbout.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/ButtonL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblAbout.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+				lblAbout.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
 			}
 
 			@Override
@@ -473,27 +648,29 @@ public class ComProgramPro extends JFrame {
 			}
 		});
 		lblAbout.setIcon(new ImageIcon(ComProgramPro.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+						+ Objects.Theme + "/Button.png")));
 		lblAbout.setVerticalTextPosition(SwingConstants.CENTER);
 		lblAbout.setIconTextGap(-30);
 		lblAbout.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblAbout.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		lblAbout.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 
-		final JLabel lblExit = new JLabel("Exit");
+		lblExit = new JLabel("Exit");
+		lblExit.setForeground(Color.BLACK);
 		panel_2.add(lblExit);
 		lblExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblExit.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonL.png")));
+				lblExit.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/ButtonL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblExit.setIcon(new ImageIcon(
-						ComProgramPro.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+				lblExit.setIcon(new ImageIcon(ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/Button.png")));
 			}
 
 			@Override
@@ -502,27 +679,34 @@ public class ComProgramPro extends JFrame {
 			}
 		});
 		lblExit.setIcon(new ImageIcon(ComProgramPro.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+						+ Objects.Theme + "/Button.png")));
 		lblExit.setVerticalTextPosition(SwingConstants.CENTER);
 		lblExit.setIconTextGap(-30);
 		lblExit.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblExit.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		lblExit.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 
 		panel_3 = new JPanel();
+		panel_3.setOpaque(false);
 		panel_3.setBackground(Color.WHITE);
 		panel_3.setBounds(32, 392, 200, 31);
 		panel.add(panel_3);
 		panel_3.setLayout(new BorderLayout(0, 0));
 
 		JLabel lblDelay = new JLabel("Delay");
+		lblDelay.setForeground(Color.GRAY);
 		panel_3.add(lblDelay, BorderLayout.WEST);
 		lblDelay.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 12));
 
 		JLabel lblSec = new JLabel("Sec.");
+		lblSec.setForeground(Color.GRAY);
 		panel_3.add(lblSec, BorderLayout.EAST);
 		lblSec.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 12));
 
 		spinner = new JSpinner();
+		spinner.setOpaque(false);
+		spinner.setForeground(Color.GRAY);
+		spinner.setBackground(Color.BLACK);
 		panel_3.add(spinner, BorderLayout.CENTER);
 
 		spinner.setModel(new SpinnerNumberModel(3, 0, 100, 1));
@@ -538,13 +722,17 @@ public class ComProgramPro extends JFrame {
 				ComProgramPro.lblDecode
 						.setIcon(new ImageIcon(
 								ComProgramPro.class
-										.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonG.png")));
+										.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+												+ Objects.Theme
+												+ "/ButtonG.png")));
 				ComProgramPro.frame.contentPane.updateUI();
 				r.delay((Integer) ComProgramPro.spinner.getValue() * 1000);
 				ComProgramPro.lblDecode
 						.setIcon(new ImageIcon(
 								ComProgramPro.class
-										.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonB.png")));
+										.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+												+ Objects.Theme
+												+ "/ButtonB.png")));
 				ComProgramPro.frame.contentPane.updateUI();
 				for (int i = 0; i < content.length(); i++) {
 					if (StopClicked == true) {
@@ -553,7 +741,9 @@ public class ComProgramPro extends JFrame {
 						ComProgramPro.lblDecode
 								.setIcon(new ImageIcon(
 										ComProgramPro.class
-												.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonR.png")));
+												.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+														+ Objects.Theme
+														+ "/ButtonR.png")));
 						ComProgramPro.lblMessageBox
 								.setText("<html><body><p style=\"color:red\">Typing terminated!");
 						ComProgramPro.frame.contentPane.updateUI();
@@ -567,7 +757,9 @@ public class ComProgramPro extends JFrame {
 						ComProgramPro.lblDecode
 								.setIcon(new ImageIcon(
 										ComProgramPro.class
-												.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+												.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+														+ Objects.Theme
+														+ "/Button.png")));
 						ComProgramPro.lblMessageBox.setText("");
 						return;
 					}
@@ -738,13 +930,17 @@ public class ComProgramPro extends JFrame {
 					ComProgramPro.lblDecode
 							.setIcon(new ImageIcon(
 									ComProgramPro.class
-											.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonY.png")));
+											.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+													+ Objects.Theme
+													+ "/ButtonY.png")));
 					ComProgramPro.frame.contentPane.updateUI();
 					sleep(500);
 					ComProgramPro.lblDecode
 							.setIcon(new ImageIcon(
 									ComProgramPro.class
-											.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+											.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+													+ Objects.Theme
+													+ "/Button.png")));
 					sleep(500);
 					ComProgramPro.frame.contentPane.updateUI();
 				}
@@ -755,7 +951,9 @@ public class ComProgramPro extends JFrame {
 				ComProgramPro.lblDecode
 						.setIcon(new ImageIcon(
 								ComProgramPro.class
-										.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonR.png")));
+										.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+												+ Objects.Theme
+												+ "/ButtonR.png")));
 				ComProgramPro.lblMessageBox
 						.setText("<html><body><p style=\"color:red\">Error happens:"
 								+ e1.getMessage());
@@ -765,7 +963,9 @@ public class ComProgramPro extends JFrame {
 					ComProgramPro.lblDecode
 							.setIcon(new ImageIcon(
 									ComProgramPro.class
-											.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+											.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+													+ Objects.Theme
+													+ "/Button.png")));
 					ComProgramPro.lblMessageBox.setText(null);
 				} catch (InterruptedException e) {
 					Objects.e = e;
@@ -786,7 +986,8 @@ public class ComProgramPro extends JFrame {
 				sleep(400);
 				panel.show();
 				contentPane.updateUI();
-			} catch (InterruptedException e) {
+			} catch (Exception e) {
+				Objects.e = e;
 				e.printStackTrace();
 			}
 		}
