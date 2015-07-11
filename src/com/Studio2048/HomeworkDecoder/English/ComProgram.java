@@ -527,11 +527,11 @@ public class ComProgram extends JFrame {
 		lblBunger.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblBunger.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/BungerL.png")));
+				lblBunger.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/BungerL.png")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblBunger.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Bunger.png")));
+				lblBunger.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/Bunger.png")));
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -541,7 +541,7 @@ public class ComProgram extends JFrame {
 				contentPane.updateUI();
 			}
 		});
-		lblBunger.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Bunger.png")));
+		lblBunger.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/Bunger.png")));
 		panel_4.add(lblBunger);
 
 		JLabel lblEnglishCompositionDecoder = new JLabel(
