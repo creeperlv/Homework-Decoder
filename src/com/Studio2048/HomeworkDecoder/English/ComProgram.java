@@ -43,7 +43,7 @@ public class ComProgram extends JFrame {
 				.getDefaultToolkit()
 				.getImage(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/IconECD.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/IconECD.png")));
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
@@ -94,15 +94,15 @@ public class ComProgram extends JFrame {
 		lblBugReport.setVerticalTextPosition(SwingConstants.CENTER);
 		lblBugReport.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblBugReport.setIconTextGap(-30);
-		lblBugReport.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+		lblBugReport.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Button.png")));
 		lblBugReport.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblBugReport.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonL.png")));
+				lblBugReport.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/ButtonL.png")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblBugReport.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+				lblBugReport.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Button.png")));
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -198,7 +198,7 @@ public class ComProgram extends JFrame {
 				}
 			}
 		});
-		lblBugReport.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+		lblBugReport.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 16));
 		panel_Menu.add(lblBugReport);
 		
 		final JLabel lblDecode_1 = new JLabel("Decode");
@@ -206,11 +206,11 @@ public class ComProgram extends JFrame {
 		lblDecode_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				lblDecode_1.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/ButtonL.png")));
+				lblDecode_1.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/ButtonL.png")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblDecode_1.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+				lblDecode_1.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Button.png")));
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -220,8 +220,8 @@ public class ComProgram extends JFrame {
 		lblDecode_1.setVerticalTextPosition(SwingConstants.CENTER);
 		lblDecode_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblDecode_1.setIconTextGap(-30);
-		lblDecode_1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-		lblDecode_1.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/Button.png")));
+		lblDecode_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
+		lblDecode_1.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Button.png")));
 		
 		JLabel label_4 = new JLabel("");
 		panel_Menu.add(label_4);
@@ -288,14 +288,14 @@ public class ComProgram extends JFrame {
 			public void mouseEntered(MouseEvent arg0) {
 				lblPaste.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/PasteL.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/PasteL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				lblPaste.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Paste.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Paste.png")));
 			}
 		});
 
@@ -312,21 +312,21 @@ public class ComProgram extends JFrame {
 			public void mouseEntered(MouseEvent arg0) {
 				label_2.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/SelAllL.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/SelAllL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				label_2.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/SelAll.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/SelAll.png")));
 			}
 		});
 		label_2.setIcon(new ImageIcon(ComProgram.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/SelAll.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/SelAll.png")));
 		panel_2.add(label_2);
 		lblPaste.setIcon(new ImageIcon(ComProgram.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/Paste.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Paste.png")));
 		panel_2.add(lblPaste);
 
 		final JLabel lblDelete = new JLabel("");
@@ -340,18 +340,18 @@ public class ComProgram extends JFrame {
 			public void mouseEntered(MouseEvent arg0) {
 				lblDelete.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/DelL.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/DelL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				lblDelete.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Del.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Del.png")));
 			}
 		});
 		lblDelete.setIcon(new ImageIcon(ComProgram.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/Del.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Del.png")));
 		panel_2.add(lblDelete);
 
 		textArea_1.setForeground(new Color(255, 255, 255));
@@ -368,20 +368,20 @@ public class ComProgram extends JFrame {
 			public void mouseEntered(MouseEvent arg0) {
 				lblDecode.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/DecodeL.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/DecodeL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				lblDecode.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Decode.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Decode.png")));
 			}
 		});
 		lblDecode
 				.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Decode.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Decode.png")));
 		panel_2.add(lblDecode);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -415,18 +415,18 @@ public class ComProgram extends JFrame {
 			public void mouseEntered(MouseEvent arg0) {
 				label.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/SelAllL.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/SelAllL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				label.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/SelAll.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/SelAll.png")));
 			}
 		});
 		label.setIcon(new ImageIcon(ComProgram.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/SelAll.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/SelAll.png")));
 		panel_3.add(label);
 
 		final JLabel label_1 = new JLabel("");
@@ -440,18 +440,18 @@ public class ComProgram extends JFrame {
 			public void mouseEntered(MouseEvent arg0) {
 				label_1.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/CopyL.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/CopyL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				label_1.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Copy.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Copy.png")));
 			}
 		});
 		label_1.setIcon(new ImageIcon(ComProgram.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/Copy.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Copy.png")));
 		panel_3.add(label_1);
 
 		final JLabel lblDelete_1 = new JLabel("");
@@ -465,18 +465,18 @@ public class ComProgram extends JFrame {
 			public void mouseEntered(MouseEvent arg0) {
 				lblDelete_1.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/DelL.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/DelL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				lblDelete_1.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Del.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Del.png")));
 			}
 		});
 		lblDelete_1.setIcon(new ImageIcon(ComProgram.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/Del.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Del.png")));
 		panel_3.add(lblDelete_1);
 
 		JPanel panel_1 = new JPanel();
@@ -490,21 +490,21 @@ public class ComProgram extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 				btnDecode.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Decode2L.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Decode2L.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnDecode.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Decode2.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Decode2.png")));
 			}
 		});
 		btnDecode.setBackground(new Color(0, 153, 255));
 		btnDecode
 				.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Decode2.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Decode2.png")));
 		btnDecode.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		btnDecode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -527,11 +527,11 @@ public class ComProgram extends JFrame {
 		lblBunger.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblBunger.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/BungerL.png")));
+				lblBunger.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/BungerL.png")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblBunger.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/Bunger.png")));
+				lblBunger.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Bunger.png")));
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -541,7 +541,7 @@ public class ComProgram extends JFrame {
 				contentPane.updateUI();
 			}
 		});
-		lblBunger.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/Bunger.png")));
+		lblBunger.setIcon(new ImageIcon(ComProgram.class.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Bunger.png")));
 		panel_4.add(lblBunger);
 
 		JLabel lblEnglishCompositionDecoder = new JLabel(
@@ -572,18 +572,18 @@ public class ComProgram extends JFrame {
 			public void mouseEntered(MouseEvent arg0) {
 				lblInfo.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/InfoL.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/InfoL.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				lblInfo.setIcon(new ImageIcon(
 						ComProgram.class
-								.getResource("/com/Studio2048/HomeworkDecoder/Res/Info.png")));
+								.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Info.png")));
 			}
 		});
 		lblInfo.setIcon(new ImageIcon(ComProgram.class
-				.getResource("/com/Studio2048/HomeworkDecoder/Res/Info.png")));
+				.getResource("/com/Studio2048/HomeworkDecoder/Res/"+Objects.Theme+"/Info.png")));
 	}
 	public static void decode(){
 		if(chckbxET.isSelected()==false){
