@@ -1,45 +1,6 @@
 package com.Studio2048.HomeworkDecoder.English;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Robot;
-import java.awt.Toolkit;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-
-import com.Studio2048.HomeworkDecoder.Objects;
-import com.Studio2048.HomeworkDecoder.English.Composition.Decoder;
-import java.awt.Color;
-import javax.swing.border.MatteBorder;
-import java.awt.FlowLayout;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.image.BufferedImage;
-import java.awt.GridLayout;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Properties;
 
 @SuppressWarnings("serial")
 public class ComProgramPro extends JFrame {
@@ -580,6 +541,95 @@ public class ComProgramPro extends JFrame {
 							(int) (frame.getHeight()) - 24);
 					ImageIO.write(screen, "png", new File("./Pro_Screenshot_"
 							+ df.format(new Date()) + ".png"));
+					
+					BufferedImage image=new BufferedImage(1000, 800, 1);
+					Graphics G=image.getGraphics();
+					G.setColor(Color.LIGHT_GRAY);
+					G.fillRect(0, 0, 1000, 800);
+					G.setColor(Color.WHITE);
+					for(int i = 0 ; i<800;i=i+2){
+						G.drawLine(0,i,1000,i);
+					}
+					G.setFont(new Font("Microsoft YaHei UI",Font.PLAIN,40));
+					for(int i =0;i<800;i=i+44){
+					G.drawString("2048 Studio",0,i);}
+					for(int i =0;i<800;i=i+44){
+					G.drawString("2048 Studio",250,i);}
+					for(int i =0;i<800;i=i+44){
+					G.drawString("2048 Studio",500,i);}
+					for(int i =0;i<800;i=i+44){
+					G.drawString("2048 Studio",750,i);}
+					G.setFont(new Font("Simsum",Font.PLAIN,12));
+					G.setColor(Color.RED);
+					String Frame=frame.toString();
+					String Panel=panel.toString();
+					String TextArea=textArea.toString();
+					String ObjectsI=Objects.class.toString()+" HashCode:"+Objects.class.hashCode();
+					String DecoderI=Decoder.class.toString()+" HashCode:"+Decoder.class.hashCode();
+					String CPP=ComProgramPro.class.toString()+" HashCode:"+ComProgramPro.class.hashCode()+" Frame(s):"+ComProgramPro.getFrames().toString();
+					String JAR="Hash code:"+new File("./ComProgramPro.jar").hashCode();
+					G.drawString("Frame:"+Frame.substring(0,100),15,15);
+					G.drawString("\t\t"+Frame.substring(100,200),50,30);
+					G.drawString("Panel:"+Panel.substring(0,100),15,45);
+					G.drawString("\t\t"+Panel.substring(100,Panel.length()),50,60);
+					G.drawString("TextArea:"+TextArea.substring(0,100),15,75);
+					G.drawString("\t\t"+TextArea.substring(100,200),60,90);
+					G.drawString("\t\t"+TextArea.substring(200,300),60,105);
+					G.drawString("\t\t"+TextArea.substring(300,400),60,120);
+					G.drawString("\t\t"+TextArea.substring(400,500),60,135);
+					G.drawString("\t\t"+TextArea.substring(500,600),60,150);
+					G.drawString("\t\t"+TextArea.substring(600,TextArea.length()),60,165);
+					G.setColor(Color.BLUE);
+					G.drawString("Classes", 1, 180);
+					G.drawLine(50, 175, 900, 175);
+					G.setColor(Color.BLACK);
+					G.drawString("Objects.Class:",14,194);
+					G.setColor(Color.BLUE);
+					G.drawString("Objects.Class:",15,195);
+					G.setColor(Color.RED);
+					G.drawString(ObjectsI,100,195);
+					G.setColor(Color.BLACK);
+					G.drawString("ComProgramPro.Class:",14,209);
+					G.setColor(Color.BLUE);
+					G.drawString("ComProgramPro.Class:",15,210);
+					G.setColor(Color.RED);
+					G.drawString(CPP,150,210);
+					G.setColor(Color.BLACK);
+					G.drawString("Decoder.Class:",14,224);
+					G.setColor(Color.BLUE);
+					G.drawString("Decoder.Class:",15,225);
+					G.setColor(Color.RED);
+					G.drawString(DecoderI,100,225);
+					G.drawString("JAR", 1, 240);
+					G.drawLine(50, 235, 900, 235);
+					G.setColor(Color.BLACK);
+					G.drawString("JAR:",14,254);
+					G.setColor(Color.BLUE);
+					G.drawString("JAR:",15,255);
+					G.setColor(Color.RED);
+					G.drawString(JAR,50,255);
+					G.setColor(Color.GREEN);
+					G.drawString("APIs", 1, 270);
+					G.drawLine(50, 265, 900, 265);
+					G.setColor(Color.BLACK);
+					G.drawString("Decoder",14,284);
+					G.setColor(Color.BLUE);
+					G.drawString("Decoder",15,285);
+					Method[] DC =Decoder.class.getDeclaredMethods();
+					for(int i = 0 ;i<DC.length;i++){
+					G.setColor(Color.BLUE);
+					G.drawString(DC[i].getName()+"()",30,300+i*15);
+					}
+					G.setColor(Color.BLACK);
+					G.drawString("System Info", 1, 300+DC.length*15);
+					G.drawLine(75, 295+DC.length*15, 900, 295+DC.length*15);
+					G.drawString("Threads:"+Thread.getAllStackTraces().size(), 15, 315+DC.length*15);
+					Map<Thread, StackTraceElement[]> Threads=Thread.getAllStackTraces();
+					for(int i = 0 ;i<Threads.size();i++){
+						G.drawString(Threads.values().toArray()[i]+"",30,330+DC.length*15+i*15);
+					}
+					ImageIO.write(image, "png", new File("./Pro_Screenshot_"
+							+ df.format(new Date()) + "_2.png"));
 					JOptionPane.showMessageDialog(null,
 							"The Screenshot has been created at ./Pro_Screenshot_"
 									+ df.format(new Date()) + ".png",
