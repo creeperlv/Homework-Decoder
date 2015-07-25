@@ -1,6 +1,52 @@
 package com.Studio2048.HomeworkDecoder.English;
 
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Robot;
+import java.awt.Toolkit;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+
+import com.Studio2048.HomeworkDecoder.Objects;
+import com.Studio2048.HomeworkDecoder.English.Composition.Decoder;
+import java.awt.Color;
+import javax.swing.border.MatteBorder;
+import java.awt.FlowLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
+import java.awt.GridLayout;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+import java.util.Properties;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class ComProgramPro extends JFrame {
@@ -11,9 +57,14 @@ public class ComProgramPro extends JFrame {
 	public static JPanel panel;
 	public static JPanel panel_1;
 
+	public static ImageIcon Working = new ImageIcon(
+			ComProgramPro.class
+					.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+							+ Objects.Theme + "/SelAllL.png"));
+
 	public static ComProgramPro frame;
 
-	public static JTextArea textArea = new JTextArea();
+	public static JTextArea textArea;
 
 	public static JSpinner spinner = new JSpinner();
 
@@ -22,6 +73,7 @@ public class ComProgramPro extends JFrame {
 	public static JLabel lblBugreport;
 	public static JLabel lblAbout;
 	public static JLabel lblExit;
+	public static JLabel lblWorking = new JLabel("");
 
 	public static boolean StopClicked = false;
 	public static boolean isRunning = false;
@@ -55,6 +107,7 @@ public class ComProgramPro extends JFrame {
 	 * Create the frame.
 	 */
 	public ComProgramPro() {
+//		setAlwaysOnTop(true);
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent arg0) {
@@ -82,6 +135,7 @@ public class ComProgramPro extends JFrame {
 			Objects.e = e;
 			Objects.isException = true;
 		}
+		textArea = new JTextArea();
 		ArrayList<Image> list = new ArrayList<Image>();
 		list.add(Toolkit
 				.getDefaultToolkit()
@@ -263,6 +317,18 @@ public class ComProgramPro extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (isRunning == false) {
+					File f = new File("./Tip.jar");
+					if (!((Integer) spinner.getValue() <= 1)) {
+						try {
+							Runtime.getRuntime()
+									.exec("javaw -jar \""
+											+ f.getCanonicalPath()
+											+ "\" \"Composition Decoder Pro\" \"<html><body><p><font size=8>Get Ready!\" 1500 Ignore NULL false \"./Hide.js\" \"./No.js\"");
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+					lblWorking.setIcon(Working);
 					Thread t = new activing();
 					t.start();
 				}
@@ -292,6 +358,7 @@ public class ComProgramPro extends JFrame {
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				lblWorking.setIcon(null);
 				StopClicked = true;
 			}
 		});
@@ -390,7 +457,6 @@ public class ComProgramPro extends JFrame {
 					panel_1.setBackground(Color.WHITE);
 					textArea.setBackground(Color.WHITE);
 				}
-				// TODO
 				label_2.setIcon(new ImageIcon(ComProgramPro.class
 						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
 								+ Objects.Theme + "/Del.png")));
@@ -456,11 +522,13 @@ public class ComProgramPro extends JFrame {
 						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
 								+ Objects.Theme + "/Button.png")));
 				contentPane.updateUI();
+				SimpleDateFormat df = new SimpleDateFormat(
+						"yyyy_MM_dd_HH_mm_ss");
+				String FileName = null;
+				String FileName2 = null;
 				try {
 					Thread t = new Flashing();
 					t.start();
-					SimpleDateFormat df = new SimpleDateFormat(
-							"yyyy_MM_dd_HH_mm_ss");
 					Robot Bug = new Robot();
 					BufferedImage screen = Bug.createScreenCapture(frame
 							.getBounds());
@@ -539,111 +607,155 @@ public class ComProgramPro extends JFrame {
 					g.drawString("Vendor:" + props.getProperty("Vendor"),
 							(int) (frame.getWidth()) - 149,
 							(int) (frame.getHeight()) - 24);
-					ImageIO.write(screen, "png", new File("./Pro_Screenshot_"
-							+ df.format(new Date()) + ".png"));
-					
-					BufferedImage image=new BufferedImage(1000, 800, 1);
-					Graphics G=image.getGraphics();
+
+					FileName="./Pro_Screenshot_"
+							+ df.format(new Date()) + ".png";
+					ImageIO.write(screen, "png", new File(FileName));
+
+					BufferedImage image = new BufferedImage(1000, 800, 1);
+					Graphics G = image.getGraphics();
 					G.setColor(Color.LIGHT_GRAY);
 					G.fillRect(0, 0, 1000, 800);
 					G.setColor(Color.WHITE);
-					for(int i = 0 ; i<800;i=i+2){
-						G.drawLine(0,i,1000,i);
+					for (int i = 0; i < 800; i = i + 2) {
+						G.drawLine(0, i, 1000, i);
 					}
-					G.setFont(new Font("Microsoft YaHei UI",Font.PLAIN,40));
-					for(int i =0;i<800;i=i+44){
-					G.drawString("2048 Studio",0,i);}
-					for(int i =0;i<800;i=i+44){
-					G.drawString("2048 Studio",250,i);}
-					for(int i =0;i<800;i=i+44){
-					G.drawString("2048 Studio",500,i);}
-					for(int i =0;i<800;i=i+44){
-					G.drawString("2048 Studio",750,i);}
-					G.setFont(new Font("Simsum",Font.PLAIN,12));
+					G.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 40));
+					for (int i = 0; i < 800; i = i + 44) {
+						G.drawString("2048 Studio", 0, i);
+					}
+					for (int i = 0; i < 800; i = i + 44) {
+						G.drawString("2048 Studio", 250, i);
+					}
+					for (int i = 0; i < 800; i = i + 44) {
+						G.drawString("2048 Studio", 500, i);
+					}
+					for (int i = 0; i < 800; i = i + 44) {
+						G.drawString("2048 Studio", 750, i);
+					}
+					G.setFont(new Font("Simsum", Font.PLAIN, 12));
 					G.setColor(Color.RED);
-					String Frame=frame.toString();
-					String Panel=panel.toString();
-					String TextArea=textArea.toString();
-					String ObjectsI=Objects.class.toString()+" HashCode:"+Objects.class.hashCode();
-					String DecoderI=Decoder.class.toString()+" HashCode:"+Decoder.class.hashCode();
-					String CPP=ComProgramPro.class.toString()+" HashCode:"+ComProgramPro.class.hashCode()+" Frame(s):"+ComProgramPro.getFrames().toString();
-					String JAR="Hash code:"+new File("./ComProgramPro.jar").hashCode();
-					G.drawString("Frame:"+Frame.substring(0,100),15,15);
-					G.drawString("\t\t"+Frame.substring(100,200),50,30);
-					G.drawString("Panel:"+Panel.substring(0,100),15,45);
-					G.drawString("\t\t"+Panel.substring(100,Panel.length()),50,60);
-					G.drawString("TextArea:"+TextArea.substring(0,100),15,75);
-					G.drawString("\t\t"+TextArea.substring(100,200),60,90);
-					G.drawString("\t\t"+TextArea.substring(200,300),60,105);
-					G.drawString("\t\t"+TextArea.substring(300,400),60,120);
-					G.drawString("\t\t"+TextArea.substring(400,500),60,135);
-					G.drawString("\t\t"+TextArea.substring(500,600),60,150);
-					G.drawString("\t\t"+TextArea.substring(600,TextArea.length()),60,165);
+					String Frame = frame.toString();
+					String Panel = panel.toString();
+					String TextArea = textArea.toString();
+					String ObjectsI = Objects.class.toString() + " HashCode:"
+							+ Objects.class.hashCode();
+					String DecoderI = Decoder.class.toString() + " HashCode:"
+							+ Decoder.class.hashCode();
+					String CPP = ComProgramPro.class.toString() + " HashCode:"
+							+ ComProgramPro.class.hashCode() + " Frame(s):"
+							+ ComProgramPro.getFrames().toString();
+					int LastTextY = 0;
+					// String JAR="Hash code:"+new
+					// File("./ComProgramPro.jar").hashCode();
+					G.drawString("Frame:" + Frame.substring(0, 100), 15, 15);
+					G.drawString("\t\t" + Frame.substring(100, 200), 50, 30);
+					G.drawString("Panel:" + Panel.substring(0, 100), 15, 45);
+					G.drawString("\t\t" + Panel.substring(100, Panel.length()),
+							50, 60);
+					G.drawString("TextArea:" + TextArea.substring(0, 100), 15,
+							75);
+					G.drawString("\t\t" + TextArea.substring(100, 200), 60, 90);
+					G.drawString("\t\t" + TextArea.substring(200, 300), 60, 105);
+					G.drawString("\t\t" + TextArea.substring(300, 400), 60, 120);
+					G.drawString("\t\t" + TextArea.substring(400, 500), 60, 135);
+					G.drawString("\t\t" + TextArea.substring(500, 600), 60, 150);
+					G.drawString(
+							"\t\t" + TextArea.substring(600, TextArea.length()),
+							60, 165);
 					G.setColor(Color.BLUE);
 					G.drawString("Classes", 1, 180);
 					G.drawLine(50, 175, 900, 175);
 					G.setColor(Color.BLACK);
-					G.drawString("Objects.Class:",14,194);
+					G.drawString("Objects.Class:", 14, 194);
 					G.setColor(Color.BLUE);
-					G.drawString("Objects.Class:",15,195);
+					G.drawString("Objects.Class:", 15, 195);
 					G.setColor(Color.RED);
-					G.drawString(ObjectsI,100,195);
+					G.drawString(ObjectsI, 100, 195);
 					G.setColor(Color.BLACK);
-					G.drawString("ComProgramPro.Class:",14,209);
+					G.drawString("ComProgramPro.Class:", 14, 209);
 					G.setColor(Color.BLUE);
-					G.drawString("ComProgramPro.Class:",15,210);
+					G.drawString("ComProgramPro.Class:", 15, 210);
 					G.setColor(Color.RED);
-					G.drawString(CPP,150,210);
+					G.drawString(CPP, 150, 210);
 					G.setColor(Color.BLACK);
-					G.drawString("Decoder.Class:",14,224);
+					G.drawString("Decoder.Class:", 14, 224);
 					G.setColor(Color.BLUE);
-					G.drawString("Decoder.Class:",15,225);
+					G.drawString("Decoder.Class:", 15, 225);
 					G.setColor(Color.RED);
-					G.drawString(DecoderI,100,225);
+					G.drawString(DecoderI, 100, 225);
 					G.drawString("JAR", 1, 240);
 					G.drawLine(50, 235, 900, 235);
 					G.setColor(Color.BLACK);
-					G.drawString("JAR:",14,254);
+					G.drawString("JAR:", 14, 254);
 					G.setColor(Color.BLUE);
-					G.drawString("JAR:",15,255);
+					G.drawString("JAR:", 15, 255);
 					G.setColor(Color.RED);
-					G.drawString(JAR,50,255);
+					// G.drawString(JAR,50,255);
 					G.setColor(Color.GREEN);
 					G.drawString("APIs", 1, 270);
 					G.drawLine(50, 265, 900, 265);
 					G.setColor(Color.BLACK);
-					G.drawString("Decoder",14,284);
+					G.drawString("Decoder", 14, 284);
 					G.setColor(Color.BLUE);
-					G.drawString("Decoder",15,285);
-					Method[] DC =Decoder.class.getDeclaredMethods();
-					for(int i = 0 ;i<DC.length;i++){
-					G.setColor(Color.BLUE);
-					G.drawString(DC[i].getName()+"()",30,300+i*15);
+					G.drawString("Decoder", 15, 285);
+					Method[] DC = Decoder.class.getDeclaredMethods();
+					for (int i = 0; i < DC.length; i++) {
+						G.setColor(Color.BLUE);
+						G.drawString(DC[i].getName() + "()", 30, 300 + i * 15);
 					}
 					G.setColor(Color.BLACK);
-					G.drawString("System Info", 1, 300+DC.length*15);
-					G.drawLine(75, 295+DC.length*15, 900, 295+DC.length*15);
-					G.drawString("Threads:"+Thread.getAllStackTraces().size(), 15, 315+DC.length*15);
-					Map<Thread, StackTraceElement[]> Threads=Thread.getAllStackTraces();
-					for(int i = 0 ;i<Threads.size();i++){
-						G.drawString(Threads.values().toArray()[i]+"",30,330+DC.length*15+i*15);
+					G.drawString("System Info", 1, 300 + DC.length * 15);
+					G.drawLine(75, 295 + DC.length * 15, 900,
+							295 + DC.length * 15);
+					G.drawString(
+							"Threads:" + Thread.getAllStackTraces().size(), 15,
+							315 + DC.length * 15);
+					Map<Thread, StackTraceElement[]> Threads = Thread
+							.getAllStackTraces();
+					for (int i = 0; i < Threads.size(); i++) {
+						G.drawString(Threads.values().toArray()[i] + "", 30,
+								LastTextY = 330 + DC.length * 15 + i * 15);
 					}
-					ImageIO.write(image, "png", new File("./Pro_Screenshot_"
-							+ df.format(new Date()) + "_2.png"));
-					JOptionPane.showMessageDialog(null,
-							"The Screenshot has been created at ./Pro_Screenshot_"
-									+ df.format(new Date()) + ".png",
-							"Bug Report Image Creater",
-							JOptionPane.WARNING_MESSAGE);
+					G.drawString("System Print Stream:" + System.out.toString()
+							+ " checkError:" + System.out.checkError(), 15,
+							LastTextY += 15);
+					G.drawString("System InPut Stream:" + System.in.toString()
+							+ " Available:" + System.in.available(), 15,
+							LastTextY += 15);
+					G.drawString("System Error Stream:" + System.err.toString()
+							+ " checkError:" + System.err.checkError(), 15,
+							LastTextY += 15);
+					FileName2="./Pro_Screenshot_"
+							+ df.format(new Date()) + "_2.png";
+					ImageIO.write(image, "png", new File(FileName2));
+					// JOptionPane.showMessageDialog(null,
+					// "The Screenshot has been created at ./Pro_Screenshot_"
+					// + df.format(new Date()) + ".png",
+					// "Bug Report Image Creater",
+					// JOptionPane.WARNING_MESSAGE);
 				} catch (Exception e) {
 					Objects.e = e;
 					Objects.isException = true;
 					e.printStackTrace();
 				}
 				try {
+					File JS=new File("./ErrorD.js");
+					BufferedWriter bw=new BufferedWriter(new FileWriter(JS));
+					bw.write("com.Studio2048.Tip.Tip.explode(\"<html><body><p><font size=4 color=\\\"white\\\">" +
+							"<html><body><p>The images has been created at"+FileName+" and "+FileName2+"! Would you upload them?\",\"Of Course\",\"./URL.js\");");
+					bw.flush();
+					bw.close();
+					File f = new File("./Tip.jar");
 					Runtime.getRuntime()
-							.exec("explorer.exe \"https://www.github.com/creeperlv/Homework-Decoder/issues\"");
-				} catch (IOException e1) {
+							.exec("javaw -jar \""
+									+ f.getCanonicalPath()
+									+ "\" \"<html><body><p><font size=5>Composition Decoder Pro Bug Reporter\" \"<html><body><p><font size=5 color=\\\"white\\\">The images has been created ! Would you upload them?\" 0 "
+									+ "\"Details\" Ignore true \"./ErrorD.js\" \"./Hide.js\"");
+
+					// Runtime.getRuntime()
+					// .exec("explorer.exe \"https://www.github.com/creeperlv/Homework-Decoder/issues\"");
+				} catch (Exception e1) {
 					Objects.e = e1;
 					Objects.isException = true;
 					e1.printStackTrace();
@@ -688,6 +800,9 @@ public class ComProgramPro extends JFrame {
 										+ "</p><p><font face=\"Microsoft YaHei UI\" size=3><center>Build:"
 										+ Objects.builds[1]
 										+ "</p><p><font face=\"Microsoft YaHei UI\" size=3><center>Author:2048 Studio</p>"
+										+ "</p><p><font face=\"Microsoft YaHei UI\" size=3><center>http://www.github.com/creeperlv/Homework-Decoder</p>"
+										+ "</p><p><font face=\"Microsoft YaHei UI\" size=3><center>Copyright(C)2013-2015 2048Studio</p>"
+										+ "</p><p><font face=\"Microsoft YaHei UI\" size=3><center>All rights reserved.</p>"
 										+ "<p><br/><font face=\"Microsoft YaHei UI\" size=3><center>This program can automatic control the "
 										+ "Keybroad to input text you want to input.",
 								"Composition Decoder Pro",
@@ -760,6 +875,50 @@ public class ComProgramPro extends JFrame {
 		panel_3.add(spinner, BorderLayout.CENTER);
 
 		spinner.setModel(new SpinnerNumberModel(3, 0, 100, 1));
+		Working = new ImageIcon(
+				ComProgramPro.class
+						.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+								+ Objects.Theme + "/SelAllL.png"));
+		// lblWorking.setIcon(Working);
+		lblWorking.setBounds(466, 12, 37, 37);
+		panel.add(lblWorking);
+
+		JButton btnTestJs = new JButton("TEST");
+		btnTestJs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Common.request(Common.PART_FULL_CTRL, 0);
+				// Common.request(Common.PART_FILE, 0);
+				// Common.request(Common.PART_FRAME_CONTROL, 0);
+				// Common.request(Common.PART_NETWORK, 0);
+				// System.out.println(Objects.Requests.get(0));
+				File f = new File("./Tip.jar");
+				try {
+					Runtime.getRuntime()
+							.exec("javaw -jar \""
+									+ f.getCanonicalPath()
+									+ "\" Testing \"<html><body><p><font size=7>Work Complete!\" 4000 Ignore NULL false \"./Hide.js\" \"./No.js\"");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		btnTestJs.setBounds(494, 25, 93, 23);
+		// panel.add(btnTestJs);
+
+		File f = new File("./Tip.jar");
+		try {
+			Runtime.getRuntime()
+					.exec("javaw -jar \""
+							+ f.getCanonicalPath()
+							+ "\" \"Composition Decoder Pro\""
+							+ " \"<html><body><p><font size=4 color=\"white\">This is a free trial version, you can use it for free,but we do not take any responsibility if it breaks your computer."
+							+ "\" 0 Detail Dismiss true \"./Detail.js\" \"./Hide.js\"");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Thread t = new Working();
+		t.start();
 	}
 
 	class activing extends Thread {
@@ -786,8 +945,18 @@ public class ComProgramPro extends JFrame {
 				ComProgramPro.frame.contentPane.updateUI();
 				for (int i = 0; i < content.length(); i++) {
 					if (StopClicked == true) {
+						lblWorking.setIcon(null);
 						isRunning = false;
 						StopClicked = false;
+						File f = new File("./Tip.jar");
+						try {
+							Runtime.getRuntime()
+									.exec("javaw -jar \""
+											+ f.getCanonicalPath()
+											+ "\" \"Composition Decoder Pro\" \"Typing terminated!\" 3000 Ignore NULL true \"./Hide.js\" \"./No.js\"");
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 						ComProgramPro.lblDecode
 								.setIcon(new ImageIcon(
 										ComProgramPro.class
@@ -974,8 +1143,18 @@ public class ComProgramPro extends JFrame {
 						sleep(0, 1);
 					}
 				}
+				lblWorking.setIcon(null);
+				File f = new File("./Tip.jar");
+				try {
+					Runtime.getRuntime()
+							.exec("javaw -jar \""
+									+ f.getCanonicalPath()
+									+ "\" \"Composition Decoder Pro\" \"<html><body><p><font size=7>Work Complete!\" 1500 Ignore NULL false \"./Hide.js\" \"./No.js\"");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				ComProgramPro.lblMessageBox
-						.setText("<html><body><p style=\"color:orange\">Complete!");
+						.setText("<html><body><p style=\"color:GRAY\">Complete!");
 				for (int i = 0; i < 3; i++) {
 					ComProgramPro.lblDecode
 							.setIcon(new ImageIcon(
@@ -996,6 +1175,29 @@ public class ComProgramPro extends JFrame {
 				}
 				ComProgramPro.lblMessageBox.setText("");
 			} catch (Exception e1) {
+				try {
+					BufferedWriter bw = new BufferedWriter(new FileWriter(
+							new File("./Errors.js")));
+					bw.write("com.Studio2048.Tip.Tip.explode(\"<html><body><p><font size=4 color=\\\"white\\\">Error happens:"
+							+ e1.getMessage()
+							+ "\",\"Ignore\",\"./Hide.js\");");
+					bw.flush();
+					bw.close();
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				File f = new File("./Tip.jar");
+				try {
+					Runtime.getRuntime()
+							.exec("javaw -jar \""
+									+ f.getCanonicalPath()
+									+ "\" \"Composition Decoder Pro\""
+									+ " \"<html><body><p><font size=6 color=\"white\">Error happens!"
+									+ "\" 0 Detail Ignore true \"./Errors.js\" \"./Hide.js\"");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				Objects.e = e1;
 				Objects.isException = true;
 				ComProgramPro.lblDecode
@@ -1021,6 +1223,8 @@ public class ComProgramPro extends JFrame {
 					Objects.e = e;
 					Objects.isException = true;
 				}
+
+				lblWorking.setIcon(null);
 				e1.printStackTrace();
 			}
 			ComProgramPro.isRunning = false;
@@ -1037,6 +1241,29 @@ public class ComProgramPro extends JFrame {
 				panel.show();
 				contentPane.updateUI();
 			} catch (Exception e) {
+				Objects.e = e;
+				e.printStackTrace();
+			}
+		}
+	}
+
+	class Working extends Thread {
+		public void run() {
+			try {
+				int i = 1;
+				while (true) {
+					sleep(100);
+					Working.setImage((Toolkit.getDefaultToolkit().getImage(ComProgramPro.class
+							.getResource("/com/Studio2048/HomeworkDecoder/Res/"
+									+ Objects.Theme + "/Working/" + i + ".png"))));
+					frame.contentPane.updateUI();
+					i++;
+					if (i == 14) {
+						i = 1;
+					}
+				}
+			} catch (Exception e) {
+				Objects.isException = true;
 				Objects.e = e;
 				e.printStackTrace();
 			}
